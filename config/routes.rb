@@ -1,11 +1,15 @@
 Rails.application.routes.draw do
 
-  resources :cart_products
   root "products#index"
 
-  resources :order_products
+  resource :account, { controller: :users }
+
+  get 'login' => 'sessions#new', as: :login
+  resource :session, only: [ :create, :destroy ]
+
+  resources :products, only: [ :index, :show ]
+  resources :cart_products, only: [ :index, :create, :update, :destroy ]
   resources :orders
-  resources :products
-  resources :users
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

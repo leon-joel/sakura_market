@@ -444,3 +444,6 @@ flycheck_*.el
 
 ### Astah
 *.asta.lock
+
+### Libra Office
+*.ods#
