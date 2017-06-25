@@ -1,0 +1,21 @@
+%p#notice= notice
+
+%p
+  %b User:
+  = @order.user
+%p
+  %b Order datetime:
+  = @order.order_datetime
+%p
+  %b Send to:
+  = @order.send_to
+%p
+  %b Date to deliver:
+  = @order.date_to_deliver
+%p
+  %b Time range to deliver:
+  = @order.time_range_to_deliver
+
+= link_to 'Edit', edit_order_path(@order)
+\|
+= link_to 'Back', orders_path

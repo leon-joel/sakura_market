@@ -439,3 +439,8 @@ flycheck_*.el
 
 # Windows shortcuts
 ### Vagrant template
+/.gitignore
+
+
+### Astah
+*.asta.lock
