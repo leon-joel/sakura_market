@@ -6,8 +6,9 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-product1 = Product.create({ name: "おたんこなすび", picture: "otanko.jpg", price: 722, description: "世界一まずいなすび", is_visible: true, display_order: 1})
-product2 = Product.create({ name: "オバキュウリ", price: 890})
+product1 = Product.create({ name: "おたんこなすび", picture: "nasu-150x150.jpg", price: 722, description: "世界一まずいなすび", is_visible: true, display_order: 1})
+product2 = Product.create({ name: "オバキュウリ", picture: "green-150x150.jpg", price: 890})
+product3 = Product.create({ name: "リコピンたっぷり新鮮トマト", picture: "red-150x150.jpg", price: 345, description: "これを食べずしてトマトを語るなかれ"})
 
 user1 = User.create({name: "User1", email: "user1@example.com", password: "abc", address: "東京"})
 user2 = User.create({name: "User2", email: "user2@example.com", password: ""})

@@ -39,3 +39,6 @@ p {
     letter-spacing: .025em;
   }
 }
+
+// partials/配下の全てのCSS/SCSSファイルを取り込む
+@import "partials/*";   // glob importing
