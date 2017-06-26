@@ -19,3 +19,6 @@ order1_product1 = OrderProduct.create( { order: order1, product: product1, sales
 order1_product2 = OrderProduct.create( { order: order1, product: product2, sales_price: 1002, quantity: 2})
 
 order2_product1 = OrderProduct.create( { order: order1, product: product2, sales_price: 1003, quantity: 3})
+
+CartProduct.create( { user: user2, product: product1 })
+CartProduct.create( { user: user2, product: product2, quantity: 2 })
