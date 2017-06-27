@@ -6,6 +6,8 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+puts "Inserting seed data..."
+
 product1 = Product.create({ name: "おたんこなすび", picture: "nasu-150x150.jpg", price: 722, description: "世界一まずいなすび", is_visible: true, display_order: 1})
 product2 = Product.create({ name: "オバキュウリ", picture: "green-150x150.jpg", price: 890})
 product3 = Product.create({ name: "リコピンたっぷり新鮮トマト", picture: "red-150x150.jpg", price: 345, description: "これを食べずしてトマトを語るなかれ", is_visible: true})
@@ -23,3 +25,5 @@ order2_product1 = OrderProduct.create( { order: order1, product: product2, sales
 
 CartProduct.create( { user: user2, product: product1 })
 CartProduct.create( { user: user2, product: product2, quantity: 2 })
+
+puts "Finished inserting seed data."
