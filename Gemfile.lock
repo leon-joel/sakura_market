@@ -63,6 +63,7 @@ GEM
     bootswatch-rails (3.3.5)
       railties (>= 3.1)
     builder (3.2.3)
+    byebug (9.0.6)
     capybara (2.14.3)
       addressable
       mime-types (>= 1.16)
@@ -148,8 +149,11 @@ GEM
     minitest (5.10.2)
     multi_json (1.12.1)
     nio4r (2.1.0)
+    nokogiri (1.8.0)
+      mini_portile2 (~> 2.2.0)
     nokogiri (1.8.0-x86-mingw32)
       mini_portile2 (~> 2.2.0)
+    pg (0.21.0)
     pg (0.21.0-x86-mingw32)
     poltergeist (1.15.0)
       capybara (~> 2.1)
@@ -253,6 +257,7 @@ GEM
       nokogiri (~> 1.3)
 
 PLATFORMS
+  ruby
   x86-mingw32
 
 DEPENDENCIES
@@ -293,4 +298,4 @@ RUBY VERSION
    ruby 2.3.3p222
 
 BUNDLED WITH
-   1.14.5
+   1.14.6

@@ -447,3 +447,6 @@ flycheck_*.el
 
 ### Libra Office
 *.ods#
+
+### RubyMine plugin
+.idea/railways.cache
