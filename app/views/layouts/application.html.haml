@@ -2,7 +2,7 @@
 %html
   %head
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
-    %title SakuraMarket
+    %title Sakura Market
     = csrf_meta_tags
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
@@ -36,4 +36,12 @@
             %a{:href => "#"} ユーザー登録
 
     .container.bg-info
+      - flash.each do |message_type, message|
+        = content_tag(:div, class: [ :alert, "alert-#{message_type}" ]) do
+          = message
+
       = yield
+
+      %hr
+
+      = debug(params) if Rails.env.development?
