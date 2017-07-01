@@ -21,6 +21,10 @@ require 'rspec/rails'
 # require only the support files necessary.
 #
 # Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
+Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
+
+require 'factory_girl_rails'
+require 'capybara/poltergeist'
 
 # Checks for pending migration and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove this line.
@@ -54,4 +58,41 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+
+
+
+  Capybara.javascript_driver = :poltergeist
+
+  Capybara.register_driver :poltergeist do |app|
+    # NOTE: need to add phantomjs to PATH
+    options = { phantomjs: "phantomjs.exe", timeout: 50 }
+
+    Capybara::Poltergeist::Driver.new(app, options)
+  end
+
+  config.before(:all) do
+    FactoryGirl.reload
+  end
+
+  config.before(:suite) do
+    # DatabaseCleaner.clean_with(:truncation,{:except => %w{categories jobs initials job_positions}})
+    # DatabaseCleaner.strategy = :transaction
+
+
+  end
+
+  config.before :each do
+    # DatabaseCleaner.start
+
+
+  end
+
+  config.after :each do
+    # DatabaseCleaner.clean
+
+
+  end
+
+  # config.include FactoryGirl::Syntax::Methods
+
 end

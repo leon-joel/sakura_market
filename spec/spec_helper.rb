@@ -13,46 +13,7 @@
 # it.
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
-Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
-
-require 'factory_girl_rails'
-require 'capybara/poltergeist'
-
 RSpec.configure do |config|
-  Capybara.javascript_driver = :poltergeist
-
-  Capybara.register_driver :poltergeist do |app|
-    # NOTE: need to add phantomjs to PATH
-options = { phantomjs: "phantomjs.exe", timeout: 50 }
-
-    Capybara::Poltergeist::Driver.new(app, options)
-  end
-
-  config.before(:all) do
-    FactoryGirl.reload
-  end
-
-  config.before(:suite) do
-    # DatabaseCleaner.clean_with(:truncation,{:except => %w{categories jobs initials job_positions}})
-    # DatabaseCleaner.strategy = :transaction
-
-    
-  end
-
-  config.before :each do
-    # DatabaseCleaner.start
-
-    
-  end
-
-  config.after :each do
-    # DatabaseCleaner.clean
-
-    
-  end
-
-  # config.include FactoryGirl::Syntax::Methods
-
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.
@@ -104,10 +65,6 @@ options = { phantomjs: "phantomjs.exe", timeout: 50 }
   #   - http://www.teaisaweso.me/blog/2013/05/27/rspecs-new-message-expectation-syntax/
   #   - http://rspec.info/blog/2014/05/notable-changes-in-rspec-3/#zero-monkey-patching-mode
   config.disable_monkey_patching!
-
-  # This setting enables warnings. It's recommended, but in some cases may
-  # be too noisy due to issues in dependencies.
-  config.warnings = true
 
   # Many RSpec users commonly either run the entire suite or an individual
   # file, and it's useful to allow more verbose output when running an

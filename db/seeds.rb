@@ -12,8 +12,8 @@ product1 = Product.create({ name: "おたんこなすび", picture: "nasu-150x15
 product2 = Product.create({ name: "オバキュウリ", picture: "green-150x150.jpg", price: 890})
 product3 = Product.create({ name: "リコピンたっぷり新鮮トマト", picture: "red-150x150.jpg", price: 345, description: "これを食べずしてトマトを語るなかれ", is_visible: true})
 
-user1 = User.create({name: "User1", email: "user1@example.com", password: "abc", address: "東京"})
-user2 = User.create({name: "User2", email: "user2@example.com", password: ""})
+user1 = User.create({name: "User1", email: "user1@example.com", password: "abc", password_confirmation: "abc", address: "東京"})
+user2 = User.create({name: "User2", email: "user2@example.com", password: " ", password_confirmation: " " })
 
 order1 = Order.create({ user: user1, order_datetime: DateTime.current - 1.day, send_to: "千葉", date_to_deliver: Date.current + 1.day, time_range_to_deliver: "16-18"})
 order2 = Order.create({ user: user1, order_datetime: DateTime.current, send_to: "鹿児島県"})
