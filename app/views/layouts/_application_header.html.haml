@@ -18,12 +18,16 @@
 
       %p.navbar-text.navbar-right
         - if current_user
+          = link_to "登録情報の変更", edit_user_path
+        - else
+          = link_to "ユーザー登録", new_user_path
+
+      -# navbar-rightを使っているので?、下に記述したアイテムの方が左に表示される
+      %p.navbar-text.navbar-right
+        - if current_user
           = link_to "ログアウト", logout_path, method: :delete
           -#ようこそ
           -#%a.navbar-link{:href => "#"} ゲスト
           -#さん。
         - else
           = link_to "ログイン", login_path
-
-      %p.navbar-text.navbar-right
-        = link_to "ユーザー登録", new_user_path
