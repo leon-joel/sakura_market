@@ -1,22 +1,28 @@
 %h1 ショッピングカート
 
-%table
+%table.table
   %thead
     %tr
+      %th Image
       %th Product
+      %th Price
       %th Quantity
-      -#%th
-      -#%th
-      -#%th
+      %th
+      %th
 
   %tbody
     - @cart_products.each do |cart_product|
       %tr
+        %td
+          = image_tag( "/images/#{cart_product.product.picture}", class: :product_img )
         %td= cart_product.product.name
+        %td= cart_product.product.price
         %td= cart_product.quantity
         -#%td= link_to 'Show', cart_product
-        -#%td= link_to 'Edit', edit_cart_product_path(cart_product)
-        -#%td= link_to 'Destroy', cart_product, :method => :delete, :data => { :confirm => 'Are you sure?' }
+        %td
+          = link_to 'カートから外す', cart_product, :method => :delete,
+            class: 'btn btn-info btn-xs',
+            data: { confirm: '本当にカートから外してもよろしいですか？' }
 
 %br
 

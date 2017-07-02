@@ -51,13 +51,6 @@ class CartProductsController < ApplicationController
   end
 
   private
-  def set_user
-    @user = current_user
-    if @user.nil?
-      redirect_to :root
-    end
-  end
-
   def set_cart_product
     @cart_product = CartProduct.find(params[:id])
   end

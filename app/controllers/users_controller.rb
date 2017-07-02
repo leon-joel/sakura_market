@@ -41,14 +41,6 @@ class UsersController < ApplicationController
   end
 
   private
-    def set_user
-      @user = current_user
-      if @user.nil?
-        redirect_to :root
-      end
-    end
-
-    # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
       params.require(:user).permit(:name, :email, :password, :password_confirmation, :address)
     end
