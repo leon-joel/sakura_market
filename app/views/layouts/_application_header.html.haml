@@ -1,0 +1,26 @@
+%nav.navbar.navbar-default.navbar-fixed-top
+  .container-fluid
+    .navbar-header
+      %button.navbar-toggle.collapsed{"data-target" => "#navbarEexample7", "data-toggle" => "collapse", :type => "button"}
+        %span.sr-only Toggle navigation
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+      = link_to "さくらマーケット", root_path, { class: "navbar-brand" }
+    #navbarEexample7.collapse.navbar-collapse
+      -#%ul.nav.navbar-nav
+      -#  %li
+      -#    %a{:href => "#"} 日記を見る
+      -#  %li.active
+      -#    %a{:href => "#"} お買い物
+      -#  %li
+      -#    %a{:href => "#"} ショッピングカート
+
+      %p.navbar-text.navbar-right
+        -#ようこそ
+        -#%a.navbar-link{:href => "#"} ゲスト
+        -#さん。
+        = link_to "ログイン", login_path
+
+      %p.navbar-text.navbar-right
+        = link_to "ユーザー登録", new_user_path
