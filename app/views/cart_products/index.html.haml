@@ -1,25 +1,23 @@
-%h1 Listing cart_products
+%h1 ショッピングカート
 
 %table
   %thead
     %tr
-      %th User
       %th Product
       %th Quantity
-      %th
-      %th
-      %th
+      -#%th
+      -#%th
+      -#%th
 
   %tbody
     - @cart_products.each do |cart_product|
       %tr
-        %td= cart_product.user
-        %td= cart_product.product
+        %td= cart_product.product.name
         %td= cart_product.quantity
-        %td= link_to 'Show', cart_product
-        %td= link_to 'Edit', edit_cart_product_path(cart_product)
-        %td= link_to 'Destroy', cart_product, :method => :delete, :data => { :confirm => 'Are you sure?' }
+        -#%td= link_to 'Show', cart_product
+        -#%td= link_to 'Edit', edit_cart_product_path(cart_product)
+        -#%td= link_to 'Destroy', cart_product, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
 %br
 
-= link_to 'New Cart product', new_cart_product_path
+= link_to '商品一覧に戻る', :root

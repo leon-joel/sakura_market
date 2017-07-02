@@ -14,6 +14,7 @@ product3 = Product.create({ name: "リコピンたっぷり新鮮トマト", pic
 
 user1 = User.create({name: "User1", email: "user1@example.com", password: "abc", password_confirmation: "abc", address: "東京"})
 user2 = User.create({name: "User2", email: "user2@example.com", password: " ", password_confirmation: " " })
+user3 = User.create({name: "User3", email: "user3@example.com", password: "xyz", password_confirmation: "xyz" })
 
 order1 = Order.create({ user: user1, order_datetime: DateTime.current - 1.day, send_to: "千葉", date_to_deliver: Date.current + 1.day, time_range_to_deliver: "16-18"})
 order2 = Order.create({ user: user1, order_datetime: DateTime.current, send_to: "鹿児島県"})
@@ -22,6 +23,8 @@ order1_product1 = OrderProduct.create( { order: order1, product: product1, sales
 order1_product2 = OrderProduct.create( { order: order1, product: product2, sales_price: 1002, quantity: 2})
 
 order2_product1 = OrderProduct.create( { order: order1, product: product2, sales_price: 1003, quantity: 3})
+
+CartProduct.create( { user: user1, product: product1, quantity: 3 })
 
 CartProduct.create( { user: user2, product: product1 })
 CartProduct.create( { user: user2, product: product2, quantity: 2 })
