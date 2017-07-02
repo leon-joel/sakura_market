@@ -17,10 +17,13 @@
       -#    %a{:href => "#"} ショッピングカート
 
       %p.navbar-text.navbar-right
-        -#ようこそ
-        -#%a.navbar-link{:href => "#"} ゲスト
-        -#さん。
-        = link_to "ログイン", login_path
+        - if current_user
+          = link_to "ログアウト", logout_path, method: :delete
+          -#ようこそ
+          -#%a.navbar-link{:href => "#"} ゲスト
+          -#さん。
+        - else
+          = link_to "ログイン", login_path
 
       %p.navbar-text.navbar-right
         = link_to "ユーザー登録", new_user_path

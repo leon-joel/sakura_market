@@ -5,15 +5,17 @@ class SessionsController < ApplicationController
   def create
     user = User.find_by(email: params[:session][:email])
     if user && user.authenticate(params[:session][:password])
+      session[:user_id] = user.id
       redirect_to root_path
     else
-      # TODO: エラーメッセージを作成する
-      flash.now[:danger] = 'Invalid email/password combination' # 本当は正しくない
+      flash.now[:danger] = 'メールアドレスが登録されていないか、パスワードが間違っています。'
       render 'new'
     end
   end
 
   def destroy
+    session.delete(:user_id)
+    redirect_to :root
   end
 
   private
