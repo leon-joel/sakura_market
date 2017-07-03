@@ -9,4 +9,8 @@
           = link_to(product) do
             %h5.product_name= product.name
           %p
-            = link_to "カートに入れる", cart_products_path(product.id), method: :post, remote: true, class: 'btn btn-info btn-xs'
+            = simple_form_for :cart_product,
+                              url: cart_products_path(product.id), method: :post,
+                              remote: true do |f|
+              = f.hidden_field :product_id, value: product.id
+              = f.submit "カートに入れる", class: 'btn btn-info btn-xs'
