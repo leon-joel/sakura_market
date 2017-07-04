@@ -4,7 +4,7 @@
       -#= link_to(product, class: :thumbnail) do
       .thumbnail
         = link_to(product) do
-          = image_tag( "/images/#{product.picture}", class: :product_img)
+          = image_tag( product.picture_path, class: :product_img)
         .caption
           = link_to(product) do
             %h5.product_name= product.name

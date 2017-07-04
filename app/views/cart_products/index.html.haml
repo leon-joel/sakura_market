@@ -14,7 +14,7 @@
     - @cart_products.each do |cart_product|
       %tr
         %td
-          = image_tag( "/images/#{cart_product.product.picture}", class: :cart_product_img )
+          = image_tag( cart_product.product.picture_path, class: :cart_product_img )
         %td= cart_product.product.name
         %td= cart_product.product.price
         %td
