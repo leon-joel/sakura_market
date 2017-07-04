@@ -14,8 +14,11 @@
     - @cart_products.each do |cart_product|
       %tr
         %td
-          = image_tag( cart_product.product.picture_path, class: :cart_product_img )
-        %td= cart_product.product.name
+          = link_to(cart_product.product) do
+            = image_tag( cart_product.product.picture_path, class: :cart_product_img )
+        %td
+          = link_to(cart_product.product) do
+            = cart_product.product.name
         %td= cart_product.product.price
         %td
           -#= cart_product.quantity
