@@ -17,22 +17,11 @@ class CartProductsController < ApplicationController
   end
 
   def create
-    @cart_product = CartProduct.new(cart_product_params.merge(user: @user))
-
-    respond_to do |format|
-      if @cart_product.save
-        format.html { redirect_to @cart_product, notice: 'Cart product was successfully created.' }
-        format.json { render :show, status: :created, location: @cart_product }
-        # flashを使ってみたが、次のリクエスト時にも表示してしまったりして都合が悪い。
-        # flashの中身を強制的にclearすることも出来るみたいだが、そこまでしてflashを使う意味も特にない…
-        # format.js   { flash[:notice] = "『#{@cart_product.product.name}』がカートに入りました。" }
-        format.js   { @ajax_res = { notice: "『#{@cart_product.product.name}』がカートに入りました。" } }
-      else
-        format.html { render :new }
-        format.json { render json: @cart_product.errors, status: :unprocessable_entity }
-        # format.js   { flash[:alert] = "商品をカートに入れられませんでした。" }
-        format.js   { @ajax_res = { alert: "商品をカートに入れられませんでした。" } }
-      end
+    result, @cart_product = CartProduct.insert_or_increment(@user.id, cart_product_params[:product_id])
+    if result
+      @ajax_res = { notice: "『#{@cart_product.product.name}』がカートに入りました。" }
+    else
+      @ajax_res = { alert: "商品をカートに入れられませんでした。" }
     end
   end
 
