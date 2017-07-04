@@ -37,14 +37,10 @@ class CartProductsController < ApplicationController
   end
 
   def update
-    respond_to do |format|
-      if @cart_product.update(cart_product_params)
-        format.html { redirect_to @cart_product, notice: 'Cart product was successfully updated.' }
-        format.json { render :show, status: :ok, location: @cart_product }
-      else
-        format.html { render :edit }
-        format.json { render json: @cart_product.errors, status: :unprocessable_entity }
-      end
+    if @cart_product.update(cart_product_params)
+      @ajax_res = { notice: "『#{@cart_product.product.name}』の数量が #{@cart_product.quantity} に変更されました。" }
+    else
+      @ajax_res = { alert: "数量が変更できませんでした。" }
     end
   end
 
@@ -55,6 +51,7 @@ class CartProductsController < ApplicationController
 
   private
   def set_cart_product
+    # TODO: 他人のCartProductを見放題やりたい放題なので対処が必要
     @cart_product = CartProduct.find(params[:id])
   end
 
