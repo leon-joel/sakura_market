@@ -50,10 +50,7 @@ class CartProductsController < ApplicationController
 
   def destroy
     @cart_product.destroy
-    respond_to do |format|
-      format.html { redirect_to cart_products_url, notice: 'Cart product was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to cart_products_url, notice: "カートから『#{@cart_product.product.name}』が削除されました。"
   end
 
   private
