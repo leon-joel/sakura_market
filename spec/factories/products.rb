@@ -1,10 +1,10 @@
 FactoryGirl.define do
   factory :product do
-    name "MyString"
-    picture "MyString"
-    price 1
-    description "MyString"
-    is_visible false
+    name "リコピンたっぷり新鮮トマト"
+    picture "tomato.jpg"
+    price 456
+    description "ザ・新鮮!!! ジューシーで濃厚!!! 新鮮トマト嫌いなお子様にも是非一度食べさせてあげてください。"
+    is_visible true
     display_order 1
   end
 end

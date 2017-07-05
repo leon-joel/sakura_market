@@ -10,9 +10,15 @@ RSpec.describe User, type: :model do
     end
 
     example 'nilを与えると、password_digest もnilになる' do
-      user = User.new(password_digest: 'x');
+      user = User.new(password_digest: 'x')
       user.password = nil
       expect(user.password_digest).to be_nil
+    end
+
+    example 'string以外を与えると, password_digestは変化しない' do
+      user = User.new(password_digest: 'x')
+      user.password = 1
+      expect(user.password_digest).to eq 'x'
     end
   end
 end

@@ -1,5 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe Product, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+
+  example '#picture_path' do
+    product = FactoryGirl.build(:product)
+    expect(product.picture_path).to eq '/images/tomato.jpg'
+
+  end
 end

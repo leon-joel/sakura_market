@@ -6,7 +6,7 @@ class User < ApplicationRecord
 
   # カートはともかく、注文（履歴）が残っている限りユーザーを削除出来ないようにするため、dependentオプションは付けない。
   # DB側制約 DELETE NO ACTION により必ず削除がエラーになる。
-  # TASK: :restrict_with_exception を付けた場合との振る舞いの違いは要確認。
+  # TODO: :restrict_with_exception を付けた場合との振る舞いの違いは要確認。
 
   # passwordのsetter
   # 生パスワードを与えると、それをハッシュ化して password_digest に代入する
