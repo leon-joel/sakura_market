@@ -5,6 +5,10 @@ class Product < ApplicationRecord
   scope :to_display, -> { where(is_visible: true).order(:display_order) }
 
   def picture_path
-    "/images/#{picture}"
+    if picture.blank?
+      ""
+    else
+      "/images/#{picture}"
+    end
   end
 end
