@@ -75,20 +75,20 @@ RSpec.configure do |config|
   end
 
   config.before(:suite) do
-    # DatabaseCleaner.clean_with(:truncation,{:except => %w{categories jobs initials job_positions}})
-    # DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner.clean_with(:truncation,{:except => %w{categories jobs initials job_positions}})
+    DatabaseCleaner.strategy = :transaction
 
 
   end
 
   config.before :each do
-    # DatabaseCleaner.start
+    DatabaseCleaner.start
 
 
   end
 
   config.after :each do
-    # DatabaseCleaner.clean
+    DatabaseCleaner.clean
 
 
   end
