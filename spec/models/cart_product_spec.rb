@@ -27,20 +27,6 @@ RSpec.describe CartProduct, type: :model do
       @cp12 = FactoryGirl.create(:cart_product, user: @user1, product: @p3, quantity: 2)
     end
 
-    example '.of_user' do
-      cart_products = CartProduct.of_user(@user1)
-      expect(cart_products.count).to eq 3
-      expect(cart_products[0].user).to eq @user1
-      expect(cart_products[0].product).to eq @p3
-      expect(cart_products[0].quantity).to eq 2
-      expect(cart_products[1].user).to eq @user1
-      expect(cart_products[1].product).to eq @p2
-      expect(cart_products[1].quantity).to eq 1
-      expect(cart_products[2].user).to eq @user1
-      expect(cart_products[2].product).to eq @p1
-      expect(cart_products[2].quantity).to eq 3
-    end
-
     example '.insert_or_increment' do
       expect {
         # increment
@@ -49,16 +35,16 @@ RSpec.describe CartProduct, type: :model do
         expect(cp.user).to eq @user1
         expect(cp.product).to eq @p1
         expect(cp.quantity).to eq 4
-      }.not_to change {CartProduct.of_user(@user1).count}   # 変化しないこと
+      }.not_to change {@user1.cart_products.count}   # 変化しないこと
 
       expect {
         # insert
-        result, cp = CartProduct.insert_or_increment(@user1, @p4)
+        result, cp = CartProduct.insert_or_increment(@user1.id, @p4.id)
         expect(result).to be_truthy
         expect(cp.user).to eq @user1
         expect(cp.product).to eq @p4
         expect(cp.quantity).to eq 1
-      }.to change {CartProduct.of_user(@user1).count}.by(1)   # 1増えること
+      }.to change {@user1.cart_products.count}.by(1)   # 1増えること
     end
   end
 end
