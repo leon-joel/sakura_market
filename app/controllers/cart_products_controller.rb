@@ -17,7 +17,7 @@ class CartProductsController < ApplicationController
   end
 
   def create
-    result, @cart_product = CartProduct.insert_or_increment(@user.id, cart_product_params[:product_id])
+    result, @cart_product = @user.add_to_cart(cart_product_params[:product_id])
     if result
       @ajax_res = { notice: "『#{@cart_product.product.name}』がカートに入りました。" }
     else

@@ -16,9 +16,9 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe "relations" do
+  describe "cart_product" do
     before :each do
-      # TODO: cart_product_spec.rbにも同じセットがあるんだけど、これどうやって共有するんだろ??? むしろDRYじゃない方がいいのか???
+      # TODO: cart_product_spec.rbにも同じセットがあるんだけど、これどうやって共有するんだろ??? むしろ共有しない（＝DRYじゃない）方がいいのか???
       @user1 = FactoryGirl.create(:user, name: "user1")
       @user2 = FactoryGirl.create(:user, name: "user2")
       @user3 = FactoryGirl.create(:user, name: "user3")
@@ -27,35 +27,51 @@ RSpec.describe User, type: :model do
       @p3 = FactoryGirl.create(:product, name: "p3", display_order: 3, is_visible: true)
       @p4 = FactoryGirl.create(:product, name: "p4", display_order: 4, is_visible: true)
 
+      @cp13 = FactoryGirl.create(:cart_product, user: @user1, product: @p1, quantity: 3)
+      @cp2  = FactoryGirl.create(:cart_product, user: @user2)
+      @cp11 = FactoryGirl.create(:cart_product, user: @user1, product: @p2)
+      @cp3  = FactoryGirl.create(:cart_product, user: @user3)
+      @cp12 = FactoryGirl.create(:cart_product, user: @user1, product: @p3, quantity: 2)
     end
 
-    describe "#cart_products" do
-      before :each do
-        @cp13 = FactoryGirl.create(:cart_product, user: @user1, product: @p1, quantity: 3)
-        @cp2  = FactoryGirl.create(:cart_product, user: @user2)
-        @cp11 = FactoryGirl.create(:cart_product, user: @user1, product: @p2)
-        @cp3  = FactoryGirl.create(:cart_product, user: @user3)
-        @cp12 = FactoryGirl.create(:cart_product, user: @user1, product: @p3, quantity: 2)
-      end
+    example "#cart_products" do
+      cart_products = @user1.cart_products
+      expect(cart_products.count).to eq 3
 
-      example "cart_products" do
-        cart_products = @user1.cart_products
-        expect(cart_products.count).to eq 3
-
-        expect(cart_products.count).to eq 3
-        expect(cart_products[0].user).to eq @user1
-        expect(cart_products[0].product).to eq @p3
-        expect(cart_products[0].quantity).to eq 2
-        expect(cart_products[1].user).to eq @user1
-        expect(cart_products[1].product).to eq @p2
-        expect(cart_products[1].quantity).to eq 1
-        expect(cart_products[2].user).to eq @user1
-        expect(cart_products[2].product).to eq @p1
-        expect(cart_products[2].quantity).to eq 3
-      end
+      expect(cart_products.count).to eq 3
+      expect(cart_products[0].user).to eq @user1
+      expect(cart_products[0].product).to eq @p3
+      expect(cart_products[0].quantity).to eq 2
+      expect(cart_products[1].user).to eq @user1
+      expect(cart_products[1].product).to eq @p2
+      expect(cart_products[1].quantity).to eq 1
+      expect(cart_products[2].user).to eq @user1
+      expect(cart_products[2].product).to eq @p1
+      expect(cart_products[2].quantity).to eq 3
     end
 
+    example '#add_to_cart' do
+      expect {
+        # increment
+        result, cp  = @user1.add_to_cart @p1.id
+        expect(result).to be_truthy
+        expect(cp.user).to eq @user1
+        expect(cp.product).to eq @p1
+        expect(cp.quantity).to eq 4
+      }.not_to change {@user1.cart_products.count}   # 変化しないこと
+
+      expect {
+        # insert
+        result, cp = @user1.add_to_cart @p4.id
+        expect(result).to be_truthy
+        expect(cp.user).to eq @user1
+        expect(cp.product).to eq @p4
+        expect(cp.quantity).to eq 1
+      }.to change {@user1.cart_products.count}.by(1)   # 1増えること
+    end
   end
+
+
   describe "#password=" do
     example "文字列を与えると、password_digest は長さ60の文字列になる" do
       user = User.new

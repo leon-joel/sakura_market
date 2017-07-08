@@ -17,4 +17,24 @@ class User < ApplicationRecord
       self.password_digest = nil
     end
   end
+
+  # TODO: 検討: 操作しているのは cart_productsテーブルだけなので、元々の設計通り CartProductモデルに実装すべきか？？？
+  def add_to_cart(product_id)
+    # TODO: （ココだけではないが）排他制御とか考えないといけないかな… 最初のSELECT時に SELECT FOR UPDATE するとか？？？ 一人で複数デバイス使えることまで考えると…
+    cart_product = CartProduct.find_by_user_id_and_product_id(self, product_id)
+    if cart_product
+      # 同じ商品が既にカートに入っている場合には、その数量を +1 する
+      result = cart_product.update({ quantity: cart_product.quantity + 1 })
+    else
+      # 入っていない場合には、普通に INSERT する
+      cart_product = CartProduct.new({user: self, product_id: product_id, quantity: 1})
+      result = cart_product.save
+    end
+
+    # TODO: 複数の値を返しているが、、、もうちょっとスマートな分かりやすい方法はないものかな？？ （Rubyだから見た目はスマートだけど…）
+    #       update!, save! を使えばもっとスマートになると思うが…
+    return result, cart_product
+  end
+
+
 end
