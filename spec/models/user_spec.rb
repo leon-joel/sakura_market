@@ -50,11 +50,10 @@ RSpec.describe User, type: :model do
       expect(cart_products[2].quantity).to eq 3
     end
 
-    example '#add_to_cart' do
+    example '#add_to_cart!' do
       expect {
         # increment
-        result, cp  = @user1.add_to_cart @p1.id
-        expect(result).to be_truthy
+        cp  = @user1.add_to_cart! @p1.id
         expect(cp.user).to eq @user1
         expect(cp.product).to eq @p1
         expect(cp.quantity).to eq 4
@@ -62,8 +61,7 @@ RSpec.describe User, type: :model do
 
       expect {
         # insert
-        result, cp = @user1.add_to_cart @p4.id
-        expect(result).to be_truthy
+        cp = @user1.add_to_cart! @p4.id
         expect(cp.user).to eq @user1
         expect(cp.product).to eq @p4
         expect(cp.quantity).to eq 1
