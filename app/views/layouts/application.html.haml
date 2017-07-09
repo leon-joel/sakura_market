@@ -9,13 +9,14 @@
   %body
     = render :partial => 'layouts/application_header'
 
-    .container.bg-info
+    .bg-info
       #flash_messages
         - flash.each do |message_type, message|
           = content_tag(:div, class: [ :alert, "alert-#{message_type}" ]) do
             = message
 
-      = yield
+      .container
+        = yield
 
       %hr
 

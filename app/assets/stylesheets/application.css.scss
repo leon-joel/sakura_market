@@ -14,8 +14,12 @@
 // Bootstrap body padding for fixed navbar
 body {
   color: #455A64;
-  padding-top: 60px;
+  padding-top: 45px;
   font-family: -apple-system, BlinkMacSystemFont, Roboto, "Segoe UI", sans-serif;
+}
+
+.container {
+  max-width: 1000px;
 }
 
 // https://goo.gl/oeMHBV Fixing Bootstrap style

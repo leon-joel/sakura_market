@@ -1,4 +1,7 @@
-%h1 ショッピングカート
+.cart_page-title
+  %h1{style: "display: inline-block;"} ショッピングカート
+  = link_to "レジに進む", new_order_path, class: 'btn btn-info'
+
 
 %table.table
   %thead
