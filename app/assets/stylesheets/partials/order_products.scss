@@ -7,5 +7,31 @@
     bottom: 0;
 
   }
+}
 
+.order_product_img {
+  width: 100px;
+  height: auto;
+}
+
+.order_currency {
+  text-align: right;
+  padding-right: 0;
+}
+
+.no-vertical-margin {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.size-larger{
+  font-size: larger;
+}
+.size-medium {
+  font-size: medium;
+}
+.size-small {
+  font-size: small;
+}
+.colored-price {
+  color: #b12704;
 }

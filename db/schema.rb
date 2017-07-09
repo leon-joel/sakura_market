@@ -38,12 +38,11 @@ ActiveRecord::Schema.define(version: 20170625085535) do
 
   create_table "orders", force: :cascade do |t|
     t.integer  "user_id"
-    t.datetime "order_datetime",        null: false
-    t.string   "send_to",               null: false
-    t.date     "date_to_deliver"
-    t.string   "time_range_to_deliver"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
+    t.string   "send_to_address",    null: false
+    t.date     "deliver_date"
+    t.string   "deliver_time_range"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
     t.index ["user_id"], name: "index_orders_on_user_id", using: :btree
   end
 

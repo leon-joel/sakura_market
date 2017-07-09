@@ -16,8 +16,8 @@ user1 = User.create({name: "User1", email: "user1@example.com", password: "abc",
 user2 = User.create({name: "User2", email: "user2@example.com", password: " ", password_confirmation: " " })
 user3 = User.create({name: "User3", email: "user3@example.com", password: "xyz", password_confirmation: "xyz" })
 
-order1 = Order.create({ user: user1, order_datetime: DateTime.current - 1.day, send_to: "千葉", date_to_deliver: Date.current + 1.day, time_range_to_deliver: "16-18"})
-order2 = Order.create({ user: user1, order_datetime: DateTime.current, send_to: "鹿児島県"})
+order1 = Order.create({ user: user1, send_to_address: "千葉", deliver_date: Date.current + 1.day, deliver_time_range: "16-18"})
+order2 = Order.create({ user: user1, send_to_address: "鹿児島県"})
 
 order1_product1 = OrderProduct.create( { order: order1, product: product1, sales_price: 1001, quantity: 1})
 order1_product2 = OrderProduct.create( { order: order1, product: product2, sales_price: 1002, quantity: 2})

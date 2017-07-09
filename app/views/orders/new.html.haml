@@ -1,54 +1,71 @@
 .order_page-title
-  %h1 注文内容を確認・変更する
+  %h2 注文内容を確認・変更する
   = link_to '注文を確定する', :orders, method: :post, class: 'btn btn-info'
 
 .clearfix
-  .col-xs-12.col-md-8.col-lg-8
-    %table.table
-      %thead
-        %tr
-          %th 商品
-          %th
-          %th 価格
-          %th 数量
-          %th
-          %th
+  .col-xs-12.col-sm-8.col-md-9.col-lg-9
+    .panel.panel-default
+      .panel-heading
+        ご注文の商品
 
-      %tbody
-        - @order_products.each do |order_product|
-          %tr
-            %td
-              = link_to(order_product.product) do
-                = image_tag( order_product.product.picture_path, class: :order_product_img )
-            %td
-              = link_to(order_product.product) do
-                = order_product.product.name
-            %td= order_product.product.price
-            %td
-              = order_product.quantity
-              -# 数量変更フォーム
-              -#= simple_form_for order_product, method: :patch, remote: true do |f|
-              -#  = f.hidden_field :product_id, value: order_product.product.id
-              -#  = f.input_field :quantity, { value: order_product.quantity, class: 'cart-quantity-input' }
-              -#  = f.submit "変更を適用", class: 'btn btn-info btn-xs'
+      .panel-body
+        %table.table
+          %tbody
+            - @order_products.each do |order_product|
+              %tr
+                %td
+                  = link_to(order_product.product) do
+                    = image_tag( order_product.product.picture_path, class: :order_product_img )
+                %td
+                  = link_to(order_product.product) do
+                    = order_product.product.name
+                %td
+                  = number_to_jpy(order_product.product.price)
+                %td
+                  = "数量: #{order_product.quantity}"
+                  -# 数量変更フォーム
+                  -#= simple_form_for order_product, method: :patch, remote: true do |f|
+                  -#  = f.hidden_field :product_id, value: order_product.product.id
+                  -#  = f.input_field :quantity, { value: order_product.quantity, class: 'cart-quantity-input' }
+                  -#  = f.submit "変更を適用", class: 'btn btn-info btn-xs'
 
-            -# 注文から削除ボタン
-            -#%td
-            -#  = link_to '削除', order_product, :method => :delete,
-            -#    class: 'btn btn-info btn-xs',
-            -#    data: { confirm: '本当にカートから外してもよろしいですか？' }
+                -# 注文から削除ボタン
+                -#%td
+                -#  = link_to '削除', order_product, :method => :delete,
+                -#    class: 'btn btn-info btn-xs',
+                -#    data: { confirm: '本当にカートから外してもよろしいですか？' }
 
-  .col-xs-12.col-md-4.col-lg-4
-    %h2 注文内容
-    %div
-      %div 商品の小計
-      %div 配送料
-      %div 注文の合計
-
-    %div
-      %div 代引き手数料について
-      %div 配送料について
-
+  .col-xs-12.col-sm-4.col-md-3.col-lg-3
+    .panel.panel-default
+      .panel-heading
+        注文内容
+      .panel-body
+        %table{ style: "width: 100%;"}
+          %tbody
+            %tr
+              %td 商品の小計
+              %td.order_currency
+                = @order.product_subtotal
+            %tr
+              %td 配送料
+              %td.order_currency 300円
+            %tr
+              %td 代引き手数料
+              %td.order_currency 300円
+            %tr
+              %td 注文の合計
+              %td.order_currency 5000円
+            %tr
+              %td{ colspan: 2 }
+                %hr.no-vertical-margin
+            %tr
+              %td.size-medium.colored-price
+                %strong ご請求金額
+              %td.order_currency.size-medium.colored-price
+                %strong 10000円
+      .panel-footer
+        %div.size-small 代引き手数料について
+        %div.size-small 配送料について
 
 %br
 
