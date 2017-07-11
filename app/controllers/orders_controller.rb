@@ -17,9 +17,8 @@ class OrdersController < ApplicationController
     end
 
     @order = Order.new(user: @user)
-    @order_products = []
     cart_products.each do |cp|
-      @order_products << OrderProduct.new(product: cp.product, quantity: cp.quantity)
+      @order.order_products << OrderProduct.new(order: @order, product: cp.product, quantity: cp.quantity)
     end
   end
 

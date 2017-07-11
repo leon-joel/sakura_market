@@ -11,18 +11,18 @@
       .panel-body
         %table.table
           %tbody
-            - @order_products.each do |order_product|
+            - @order.order_products.each do |op|
               %tr
                 %td
-                  = link_to(order_product.product) do
-                    = image_tag( order_product.product.picture_path, class: :order_product_img )
+                  = link_to(op.product) do
+                    = image_tag( op.product.picture_path, class: :order_product_img )
                 %td
-                  = link_to(order_product.product) do
-                    = order_product.product.name
+                  = link_to(op.product) do
+                    = op.product.name
                 %td
-                  = number_to_jpy(order_product.product.price)
+                  = number_to_jpy(op.product.price)
                 %td
-                  = "数量: #{order_product.quantity}"
+                  = "数量: #{op.quantity}"
                   -# 数量変更フォーム
                   -#= simple_form_for order_product, method: :patch, remote: true do |f|
                   -#  = f.hidden_field :product_id, value: order_product.product.id
@@ -45,7 +45,7 @@
             %tr
               %td 商品の小計
               %td.order_currency
-                = @order.product_subtotal
+                = number_to_jpy(@order.total)
             %tr
               %td 配送料
               %td.order_currency 300円
