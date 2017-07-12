@@ -16,8 +16,8 @@ class CartProductsController < ApplicationController
   end
 
   def create
-    @cart_product = @user.add_to_cart!(cart_product_params[:product_id])
-    @ajax_res = { notice: "『#{@cart_product.product.name}』がカートに入りました。" }
+    cart_product = @user.add_to_cart!(cart_product_params[:product_id])
+    @ajax_res = { notice: "『#{cart_product.product.name}』がカートに入りました。" }
   rescue => e
     @ajax_res = { alert: "商品をカートに入れられませんでした。" }
     logger.error e
