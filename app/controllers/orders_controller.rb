@@ -11,14 +11,9 @@ class OrdersController < ApplicationController
 
   def new
     # カートの内容を取得し、Orderに詰め込む
-    cart_products = @user.cart_products
-    if cart_products.count == 0
+    @order = Order.new_from_user(@user)
+    if @order.nil?
       redirect_to :cart_products
-    end
-
-    @order = Order.new(user: @user)
-    cart_products.each do |cp|
-      @order.order_products << OrderProduct.new(order: @order, product: cp.product, quantity: cp.quantity)
     end
   end
 
