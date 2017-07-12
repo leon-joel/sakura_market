@@ -3,7 +3,6 @@ class CartProductsController < ApplicationController
   before_action :set_cart_product, only: [:show, :edit, :update, :destroy]
 
   def index
-    @cart_products = @user.cart_products
   end
 
   def show
