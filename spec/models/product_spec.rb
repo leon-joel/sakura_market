@@ -7,11 +7,8 @@ RSpec.describe Product, type: :model do
     end
 
     example 'default value' do
-      expect(@product.name).to eq '商品1'
       expect(@product.picture).to eq ''
-      expect(@product.price).to eq 99999999
       expect(@product.description).to eq ''
-      expect(@product.is_visible).to eq false
       expect(@product.display_order).to eq 0
     end
   end

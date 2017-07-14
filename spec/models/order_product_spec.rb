@@ -12,11 +12,11 @@ RSpec.describe OrderProduct, type: :model do
   end
 
   example '#subtotal' do
-    order1 = FactoryGirl.create(:order, user: @user1)
-    op1 = FactoryGirl.create(:order_product, order: order1, product: @p1, quantity: 1)
-    op2 = FactoryGirl.create(:order_product, order: order1, product: @p2, quantity: 2)
+    order1 = FactoryGirl.build(:order, user: @user1)
+    order1.order_products << FactoryGirl.build(:order_product, order: order1, product: @p1, quantity: 1)
+    order1.order_products << FactoryGirl.build(:order_product, order: order1, product: @p2, quantity: 2)
 
-    expect(op1.subtotal).to eq 100
-    expect(op2.subtotal).to eq 400
+    expect(order1.order_products[0].subtotal).to eq 100
+    expect(order1.order_products[1].subtotal).to eq 400
   end
 end

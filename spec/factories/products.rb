@@ -1,6 +1,8 @@
 FactoryGirl.define do
   factory :product do
     name "商品1"
+    price 100
+    is_visible true
   end
   # factory :product do
   #   name "リコピンたっぷり新鮮トマト"

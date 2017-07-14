@@ -3,9 +3,9 @@ class CreateProducts < ActiveRecord::Migration[5.0]
     create_table :products do |t|
       t.string :name, null: false
       t.string :picture, null: false, default: ''
-      t.integer :price, null: false, default: 99999999
+      t.integer :price, null: false
       t.string :description, null: false, default: ''
-      t.boolean :is_visible, null: false, default: false
+      t.boolean :is_visible, null: false
       t.integer :display_order, null: false, default: 0
 
       t.timestamps null: false

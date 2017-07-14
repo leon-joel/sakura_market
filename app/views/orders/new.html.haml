@@ -45,16 +45,20 @@
             %tr
               %td 商品の小計
               %td.order_currency
-                = number_to_jpy(@order.total)
+                = number_to_jpy(@order.products_total)
             %tr
               %td 配送料
-              %td.order_currency 300円
+              %td.order_currency
+                = number_to_jpy(@order.postage)
             %tr
               %td 代引き手数料
-              %td.order_currency 300円
+              %td.order_currency
+                = number_to_jpy(@order.cod_fee)
             %tr
-              %td 注文の合計
-              %td.order_currency 5000円
+              %td 税
+              %td.order_currency
+                = number_to_jpy(@order.tax)
+
             %tr
               %td{ colspan: 2 }
                 %hr.no-vertical-margin
@@ -62,7 +66,8 @@
               %td.size-medium.colored-price
                 %strong ご請求金額
               %td.order_currency.size-medium.colored-price
-                %strong 10000円
+                %strong
+                  = number_to_jpy(@order.grand_total)
       .panel-footer
         %div.size-small 代引き手数料について
         %div.size-small 配送料について
