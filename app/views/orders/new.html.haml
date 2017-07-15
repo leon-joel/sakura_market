@@ -9,7 +9,8 @@
         %div
           %div
             %strong お届け先
-            %a 変更
+            %button{ onclick: "editSendToAddress()" } 変更
+
           %div= @user.name
           %div= @user.address
         %div
@@ -93,3 +94,27 @@
 %br
 
 = link_to '商品一覧に戻る', :root
+
+
+#edit-address-modal.modal{ tabindex: "-1", role: "dialog", "aria-hidden" => "true"}
+  .modal-dialog
+    .modal-content
+
+      .modal-header
+        %button.close{ type: "button", data: { dismiss: "modal"} }
+          %span &times;
+
+        %h4.modal-title お届け先の編集
+
+      .modal-body
+        .field
+          %div
+            %label.control-label.string お名前
+            %input.string{ type: "text"}
+          %div
+            %label.control-label.string 住所
+            %textarea.text
+
+      .modal-footer
+        %button.btn.btn-primary OK
+        %button.btn.btn-default{ type: "button", data: { dismiss: "modal" }} Cancel
