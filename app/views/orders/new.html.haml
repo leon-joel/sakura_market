@@ -9,10 +9,10 @@
         %div
           %div
             %strong お届け先
-            %button{ onclick: "editSendToAddress()" } 変更
+            %button.btn.btn-link.btn-xs{ type: "button", onclick: "editSendToAddress()" } 変更
 
-          %div= @user.name
-          %div= @user.address
+          %div#name-div= @user.name
+          %div#address-div= @user.address
         %div
           %div
             %strong 支払い方法
@@ -20,7 +20,7 @@
         %div
           %div
             %strong 配達時間
-            %A 変更
+            %button.btn.btn-link.btn-xs{ type: "button", onclick: "editDeliveryTimeRage()" } 変更
           指定なし
 
     .panel.panel-default
@@ -108,13 +108,14 @@
 
       .modal-body
         .field
-          %div
+          .form-group.string
             %label.control-label.string お名前
-            %input.string{ type: "text"}
-          %div
+            %input#name-input.form-control.string{ type: "text"}
+          .form-group.text
             %label.control-label.string 住所
-            %textarea.text
+            -#%textarea#address-textarea.form-control.text
+            %input#address-input.form-control.string{ type: "text" }
 
       .modal-footer
-        %button.btn.btn-primary OK
+        %button.btn.btn-primary{ onclick: "updateSendToAddress()" } OK
         %button.btn.btn-default{ type: "button", data: { dismiss: "modal" }} Cancel
