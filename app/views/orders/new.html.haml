@@ -5,6 +5,24 @@
 .clearfix
   .col-xs-12.col-sm-8.col-md-9.col-lg-9
     .panel.panel-default
+      .panel-body
+        %div
+          %div
+            %strong お届け先
+            %a 変更
+          %div= @user.name
+          %div= @user.address
+        %div
+          %div
+            %strong 支払い方法
+          代引き
+        %div
+          %div
+            %strong 配達時間
+            %A 変更
+          指定なし
+
+    .panel.panel-default
       .panel-heading
         ご注文の商品
 
