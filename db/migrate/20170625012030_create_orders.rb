@@ -2,6 +2,7 @@ class CreateOrders < ActiveRecord::Migration[5.0]
   def change
     create_table :orders do |t|
       t.references :user, foreign_key: true
+      t.string :send_to_name, null: false
       t.string :send_to_address, null: false
       t.date :delivery_date
       t.string :delivery_time_range
