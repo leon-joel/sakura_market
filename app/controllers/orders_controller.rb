@@ -21,14 +21,13 @@ class OrdersController < ApplicationController
   end
 
   def create
-    # orderおよびorder_product行をINSERT
-    @order = Order.new(order_params.merge!(user: @user))
-
-    if @order.save
-      redirect_to :products, notice: 'Order was successfully created.'
-    else
-      render :new
-    end
+    @order = Order.create_and_clear_cart(@user, order_params)
+    redirect_to :products, notice: '注文が受け付けられました。'
+  rescue => e
+    logger.warn e
+    @order = Order.new(order_params.merge(user: @user))
+    flash.now[:danger] = "注文が受け付けられませんでした。[error=#{e.message}]"
+    render :new
   end
 
   def update

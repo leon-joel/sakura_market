@@ -25,6 +25,20 @@ class Order < ApplicationRecord
     end
   end
 
+  # orderおよびorder_product行をINSERT＆カートをクリア＆COMMIT
+  def self.create_and_clear_cart(user, param)
+    Order.transaction do
+      order = Order.create!(param.merge(user: user))
+
+      # TODO: destroy_all! が無いらしいので、1つ1つ destroy! してる…
+      user.cart_products.each do |cp|
+        cp.destroy!
+      end
+
+      order
+    end
+  end
+
   def products_total
     order_products.sum(&:subtotal)
   end
