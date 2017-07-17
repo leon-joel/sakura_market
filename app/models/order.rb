@@ -1,7 +1,9 @@
 class Order < ApplicationRecord
   belongs_to :user
 
-  has_many :order_products, -> { order "created_at ASC" }
+  has_many :order_products, -> { order "created_at ASC" },
+           :inverse_of => :order    # ←これによってorder_productのorder_idカラムに正しい値がセットされるようになる https://stackoverflow.com/questions/16782990/rails-how-to-populate-parent-object-id-using-nested-attributes-for-child-obje
+  accepts_nested_attributes_for :order_products, allow_destroy: true
 
   # userのカートの内容からOrderを生成する
   # カートが空の場合はnilを返す。
@@ -14,6 +16,9 @@ class Order < ApplicationRecord
     end
 
     Order.new(user: user) do |order|
+      order.send_to_name = user.name
+      order.send_to_address = user.address
+
       user.cart_products.each do |cp|
         order.order_products << OrderProduct.new(order: order, product: cp.product, quantity: cp.quantity)
       end

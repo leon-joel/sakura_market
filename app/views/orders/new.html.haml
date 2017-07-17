@@ -37,8 +37,7 @@
               - @order.order_products.each do |op|
                 = f.fields_for :order_products, op do |op_form|
                   %tr
-                    -#= op_form.hidden_field :product, :id
-                    = hidden_field_tag "order[order_products][product_id]", op.product.id
+                    = op_form.hidden_field :product_id, value: op.product.id
                     %td
                       = link_to(op.product) do
                         = image_tag(op.product.picture_path, class: :order_product_img )

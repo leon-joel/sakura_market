@@ -21,16 +21,13 @@ class OrdersController < ApplicationController
   end
 
   def create
-    @order = Order.new(order_params)
+    # orderおよびorder_product行をINSERT
+    @order = Order.new(order_params.merge!(user: @user))
 
-    respond_to do |format|
-      if @order.save
-        format.html { redirect_to @order, notice: 'Order was successfully created.' }
-        format.json { render :show, status: :created, location: @order }
-      else
-        format.html { render :new }
-        format.json { render json: @order.errors, status: :unprocessable_entity }
-      end
+    if @order.save
+      redirect_to :products, notice: 'Order was successfully created.'
+    else
+      render :new
     end
   end
 
@@ -64,6 +61,7 @@ class OrdersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
-      params.require(:order).permit(:user_id, :order_datetime, :send_to, :date_to_deliver, :time_range_to_deliver)
+      params.require(:order).permit(:send_to_name, :send_to_address, :delivery_date, :delivery_time_range,
+                                    order_products_attributes: [ :product_id, :quantity ] )
     end
 end
