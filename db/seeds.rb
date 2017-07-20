@@ -20,7 +20,7 @@ begin
     user3 = User.create({name: "User3", email: "user3@example.com", password: "xyz", password_confirmation: "xyz" })
 
     order1 = Order.create({user: user1, send_to_name: '山田一郎', send_to_address: "千葉", delivery_date: Date.current + 1.day,
-                         delivery_time_range: "16-18"})
+                         delivery_time_range: "4"})
     order2 = Order.create({ user: user1, send_to_name: '勅使河原 次郎左右衛門', send_to_address: "鹿児島県" })
 
     order1_product1 = OrderProduct.create( { order: order1, product: product1, quantity: 1})
