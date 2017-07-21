@@ -1,0 +1,22 @@
+#edit-address-modal.modal{ tabindex: "-1", role: "dialog", "aria-hidden" => "true"}
+  .modal-dialog
+    .modal-content
+
+      .modal-header
+        %button.close{ type: "button", data: { dismiss: "modal"} }
+          %span &times;
+
+        %h4.modal-title お届け先の編集
+
+      .modal-body
+        .field
+          .form-group.string
+            %label.control-label.string お名前
+            %input#name-input.form-control.string{ type: "text"}
+          .form-group.text
+            %label.control-label.string 住所
+            %input#address-input.form-control.string{ type: "text" }
+
+      .modal-footer
+        %button.btn.btn-primary{ onclick: "updateSendToAddress()" } OK
+        %button.btn.btn-default{ type: "button", data: { dismiss: "modal" }} Cancel

@@ -8,24 +8,26 @@
     .col-xs-12.col-sm-8.col-md-9.col-lg-9
       .panel.panel-default
         .panel-body
-          %div
+          %div.col-xs-12.col-sm-12.col-md-6.col-lg-6
             %div
               %strong お届け先
               %button.btn.btn-link.btn-xs{ type: "button", onclick: "editSendToAddress()" } 変更
 
-            %div#name-div= @user.name
+            #name-div= @user.name
             = f.hidden_field :send_to_name
-            %div#address-div= @user.address
+            #address-div= @user.address
             = f.hidden_field :send_to_address
-          %div
+          %div.col-xs-12.col-sm-12.col-md-2.col-lg-2
             %div
               %strong 支払い方法
             代引き
-          %div
+          %div.col-xs-12.col-sm-12.col-md-4.col-lg-4
             %div
               %strong 配達時間
               %button.btn.btn-link.btn-xs{ type: "button", onclick: "editDeliveryTimeRage()" } 変更
-            指定なし
+            %span#delivery_time_range
+              = @order.delivery_time_range_string
+            = f.hidden_field :delivery_time_range
 
       .panel.panel-default
         .panel-heading
@@ -105,27 +107,6 @@
 
 = link_to '商品一覧に戻る', :root
 
+= render partial: 'edit_address_modal'
 
-#edit-address-modal.modal{ tabindex: "-1", role: "dialog", "aria-hidden" => "true"}
-  .modal-dialog
-    .modal-content
-
-      .modal-header
-        %button.close{ type: "button", data: { dismiss: "modal"} }
-          %span &times;
-
-        %h4.modal-title お届け先の編集
-
-      .modal-body
-        .field
-          .form-group.string
-            %label.control-label.string お名前
-            %input#name-input.form-control.string{ type: "text"}
-          .form-group.text
-            %label.control-label.string 住所
-            -#%textarea#address-textarea.form-control.text
-            %input#address-input.form-control.string{ type: "text" }
-
-      .modal-footer
-        %button.btn.btn-primary{ onclick: "updateSendToAddress()" } OK
-        %button.btn.btn-default{ type: "button", data: { dismiss: "modal" }} Cancel
+= render partial: 'edit_time_range_modal'

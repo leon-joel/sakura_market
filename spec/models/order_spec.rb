@@ -68,49 +68,108 @@ RSpec.describe Order, type: :model do
     end
   end
 
-  describe "instance methods" do
+  describe "methods" do
     let(:user1) { FactoryGirl.build(:user, name: "user1") }
     let(:p1) { FactoryGirl.build(:product, name: "p1", price: 100 ) }
     let(:p2) { FactoryGirl.build(:product, name: "p2", price: 1000 ) }
     let(:p3) { FactoryGirl.build(:product, name: "p3", price: 10000 ) }
 
-    let(:order0) { FactoryGirl.build(:order, user: user1) }
-    let(:order1) {
-      order = FactoryGirl.build(:order, user: user1)
-      order.order_products << FactoryGirl.build(:order_product, order: order, product: p1, quantity: 1)
-      order.order_products << FactoryGirl.build(:order_product, order: order, product: p2, quantity: 2)
-      order
-    }
-    let(:order2) {
-      order = FactoryGirl.build(:order, user: user1)
-      order.order_products << FactoryGirl.build(:order_product, order: order, product: p1, quantity: 1)
-      order.order_products << FactoryGirl.build(:order_product, order: order, product: p2, quantity: 2)
-      order.order_products << FactoryGirl.build(:order_product, order: order, product: p3, quantity: 3)
-      order
-    }
-    example "order0" do
-      expect(order0.total_quantity).to eq 0
-      expect(order0.products_total).to eq 0
-      expect(order0.postage).to eq 0
-      expect(order0.cod_fee).to eq 0
-      expect(order0.tax).to eq 0
-      expect(order0.grand_total).to eq 0
+    describe "instance methods" do
+      let(:order0) { FactoryGirl.build(:order, user: user1) }
+      let(:order1) {
+        order = FactoryGirl.build(:order, user: user1)
+        order.order_products << FactoryGirl.build(:order_product, order: order, product: p1, quantity: 1)
+        order.order_products << FactoryGirl.build(:order_product, order: order, product: p2, quantity: 2)
+        order
+      }
+      let(:order2) {
+        order = FactoryGirl.build(:order, user: user1)
+        order.order_products << FactoryGirl.build(:order_product, order: order, product: p1, quantity: 1)
+        order.order_products << FactoryGirl.build(:order_product, order: order, product: p2, quantity: 2)
+        order.order_products << FactoryGirl.build(:order_product, order: order, product: p3, quantity: 3)
+        order
+      }
+
+      example "order0" do
+        expect(order0.total_quantity).to eq 0
+        expect(order0.products_total).to eq 0
+        expect(order0.postage).to eq 0
+        expect(order0.cod_fee).to eq 0
+        expect(order0.tax).to eq 0
+        expect(order0.grand_total).to eq 0
+      end
+      example "order1" do
+        expect(order1.total_quantity).to eq 3
+        expect(order1.products_total).to eq 2100
+        expect(order1.postage).to eq 600
+        expect(order1.cod_fee).to eq 300
+        expect(order1.tax).to eq 240
+        expect(order1.grand_total).to eq 3240
+      end
+      example "order2" do
+        expect(order2.total_quantity).to eq 6
+        expect(order2.products_total).to eq 32100
+        expect(order2.postage).to eq 1200
+        expect(order2.cod_fee).to eq 600
+        expect(order2.tax).to eq 2712
+        expect(order2.grand_total).to eq 36612
+      end
+
+      example 'delivery_time_range_string' do
+        expect(order1.delivery_time_range_string).to eq '指定なし'
+        order1.delivery_time_range = -1
+        expect(order1.delivery_time_range_string).to eq '指定なし'
+
+        order1.delivery_time_range = 1
+        expect(order1.delivery_time_range_string).to eq '午前中（12時まで）'
+
+        order1.delivery_time_range = 2
+        expect(order1.delivery_time_range_string).to eq '14時～16時'
+
+        order1.delivery_time_range = 3
+        expect(order1.delivery_time_range_string).to eq '16時～18時'
+
+        order1.delivery_time_range = 4
+        expect(order1.delivery_time_range_string).to eq '18時～20時'
+
+        order1.delivery_time_range = 5
+        expect(order1.delivery_time_range_string).to eq '19時～21時'
+      end
     end
-    example "order1" do
-      expect(order1.total_quantity).to eq 3
-      expect(order1.products_total).to eq 2100
-      expect(order1.postage).to eq 600
-      expect(order1.cod_fee).to eq 300
-      expect(order1.tax).to eq 240
-      expect(order1.grand_total).to eq 3240
+
+    describe "class methods" do
+      let(:user1) { FactoryGirl.create(:user, name: "user1") }
+      let(:p1) { FactoryGirl.create(:product, name: "p1", price: 100 ) }
+      let(:p2) { FactoryGirl.create(:product, name: "p2", price: 1000 ) }
+      let(:p3) { FactoryGirl.create(:product, name: "p3", price: 10000 ) }
+      let(:order_hash0) {
+        FactoryGirl.attributes_for(:order, user: user1)
+      }
+      let(:order_hash1) {
+        # FactoryGirl.attributes_for(:order, user: user1,
+        #                            order_products_attributes: { 0 => FactoryGirl.attributes_for(:order_product,
+        #                                                                                         product: FactoryGirl.attributes_for(:product)) } )
+        op = FactoryGirl.attributes_for(:order_product)
+        op.merge!( "product_id" => "#{p1.id}" )
+        order = FactoryGirl.attributes_for(:order)
+        order.merge!("order_products_attributes" => { "0" => op } )
+        # hash.merge!(order_products_attributes: { 0 =>)
+
+      }
+
+      example '.create_and_clear_cart' do
+        order = Order.create_and_clear_cart(user1, order_hash0)
+        expect(order.user).to eq user1
+        expect(order.order_products.length).to eq 0
+
+        # TODO: POSTデータの渡し方が分からない。order_productが正しくcreateされてないようだ
+        # p order_hash1
+        # order1 = Order.create_and_clear_cart(user1, order_hash1)
+        # p order1
+        # expect(order.user).to eq user1
+        # expect(order.order_products.length).to eq 1
+      end
     end
-    example "order2" do
-      expect(order2.total_quantity).to eq 6
-      expect(order2.products_total).to eq 32100
-      expect(order2.postage).to eq 1200
-      expect(order2.cod_fee).to eq 600
-      expect(order2.tax).to eq 2712
-      expect(order2.grand_total).to eq 36612
-    end
+
   end
 end
