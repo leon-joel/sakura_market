@@ -1,13 +1,12 @@
-%h1 Listing orders
+%h1 注文履歴
 
-%table
+%table.table
   %thead
     %tr
-      %th User
-      %th Order datetime
-      %th Send to
-      %th Date to deliver
-      %th Time range to deliver
+      %th お届け先
+      %th お届け先住所
+      %th お届け日
+      %th お届け希望時間帯
       %th
       %th
       %th
@@ -15,11 +14,10 @@
   %tbody
     - @orders.each do |order|
       %tr
-        %td= order.user
-        %td= order.order_datetime
-        %td= order.send_to
-        %td= order.date_to_deliver
-        %td= order.time_range_to_deliver
+        %td= order.send_to_name
+        %td= order.send_to_address
+        %td= order.delivery_date
+        %td= order.delivery_time_range_string
         %td= link_to 'Show', order
         %td= link_to 'Edit', edit_order_path(order)
         %td= link_to 'Destroy', order, :method => :delete, :data => { :confirm => 'Are you sure?' }
