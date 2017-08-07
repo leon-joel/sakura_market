@@ -1,3 +1,5 @@
+= paginate @products
+
 .row
   - @products.each do |product|
     = content_tag(:div, id: dom_id(product), class: "col-xs-6 col-md-4 col-lg-3") do
@@ -14,3 +16,5 @@
                               remote: true do |f|
               = f.hidden_field :product_id, value: product.id
               = f.submit "カートに入れる", class: 'btn btn-info btn-xs'
+
+= paginate @products

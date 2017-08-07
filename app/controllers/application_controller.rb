@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   def set_user
     @user = current_user
     if @user.nil?
-      redirect_to :root
+      redirect_to :login
     end
   end
 

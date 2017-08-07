@@ -16,6 +16,8 @@
         %td= order.send_to_name
         %td= link_to '詳細', order
 
+  = paginate @orders
+
 %br
 
   = link_to '商品一覧に戻る', :root

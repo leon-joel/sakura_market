@@ -3,7 +3,7 @@ class OrdersController < ApplicationController
   before_action :set_order, only: [:show ]
 
   def index
-    @orders = Order.order(created_at: :desc).all
+    @orders = Order.order(created_at: :desc).page(params[:page])
   end
 
   def show
