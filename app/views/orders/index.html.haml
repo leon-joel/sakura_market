@@ -3,25 +3,19 @@
 %table.table
   %thead
     %tr
+      %th 注文日
+      %th 合計
       %th お届け先
-      %th お届け先住所
-      %th お届け日
-      %th お届け希望時間帯
-      %th
-      %th
       %th
 
   %tbody
     - @orders.each do |order|
       %tr
+        %td= order.created_at.strftime("%Y年%m月%d日")
+        %td= number_to_jpy(order.grand_total)
         %td= order.send_to_name
-        %td= order.send_to_address
-        %td= order.delivery_date
-        %td= order.delivery_time_range_string
-        %td= link_to 'Show', order
-        %td= link_to 'Edit', edit_order_path(order)
-        %td= link_to 'Destroy', order, :method => :delete, :data => { :confirm => 'Are you sure?' }
+        %td= link_to '詳細', order
 
 %br
 
-= link_to 'New Order', new_order_path
+  = link_to '商品一覧に戻る', :root

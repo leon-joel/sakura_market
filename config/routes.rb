@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
   resources :products, only: [ :index, :show ], format: false
   resources :cart_products, only: [ :index, :create, :update, :destroy ], format: false
-  resources :orders, format: false
+  resources :orders, only: [ :index, :new, :create, :show ], format: false
 
   namespace :admin do
     root "sessions#new"

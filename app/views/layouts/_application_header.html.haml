@@ -23,6 +23,10 @@
         - else
           = link_to "ユーザー登録", new_user_path
 
+      - if current_user
+        %p.navbar-text.navbar-right
+          = link_to "注文履歴", :orders
+
       -# navbar-rightを使っているので?、下に記述したアイテムの方が左に表示される
       %p.navbar-text.navbar-right
         - if current_user
