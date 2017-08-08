@@ -1,2 +1,6 @@
-%li
-  = link_to_unless current_page.first?, raw(t 'views.pagination.first'), url, :remote => remote
+= content_tag(:li, class: ("disabled" if current_page.first?)) do        |
+    link_to_unless(current_page.first?,                                  |
+                   t('views.pagination.first').html_safe, url) do |name| |
+      content_tag(:span, name)                                           |
+    end                                                                  |
+  end                                                                    |

@@ -1,2 +1,9 @@
-%li
-  = link_to_unless current_page.last?, raw(t 'views.pagination.next'), url, :rel => 'next', :remote => remote
+/ <li>
+/ <haml_loud> link_to_unless current_page.last?, raw(t &#39;views.pagination.next&#39;), url, :rel =&gt; &#39;next&#39;, :remote =&gt; remote </haml_loud>
+/ </li>
+= content_tag(:li, class: ("disabled" if current_page.last?)) do        |
+    link_to_unless(current_page.last?,                                  |
+                   t('views.pagination.next').html_safe, url) do |name| |
+      content_tag(:span, name)                                          |
+    end                                                                 |
+  end                                                                   |
