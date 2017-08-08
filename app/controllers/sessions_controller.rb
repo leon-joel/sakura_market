@@ -1,4 +1,6 @@
 class SessionsController < ApplicationController
+  # TODO: current_user の事前条件必要? new/createできるのはcurrent_userがnilの場合のみ、destroyできるのは当該ユーザーでログインしている場合のみ
+
   def new
   end
 

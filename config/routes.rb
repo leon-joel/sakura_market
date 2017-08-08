@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root "products#index"
 
-  resource :account, { controller: :users, as: :user, format: false }
+  resource :account, { except: [ :destroy ], controller: :users, as: :user, format: false }
 
   get 'login' => 'sessions#new', format: false
   post 'login' => 'sessions#create', format: false
@@ -14,13 +14,14 @@ Rails.application.routes.draw do
   resources :orders, only: [ :index, :new, :create, :show ], format: false
 
   namespace :admin do
-    root "sessions#new"
+    root "orders#index"
 
-    get 'login' => 'sessions#new', as: :login, format: false
-    resource :session, only: [ :create, :destroy ], format: false
+    get 'login' => 'sessions#new', format: false
+    post 'login' => 'sessions#create', format: false
+    delete 'logout' => 'sessions#destroy', format: false
 
     resources :users, only: [ :index, :show, :edit, :update, :destroy ], format: false
     resources :products, format: false
-    resources :orders, only: [ :index, :show, :edit, :update ], format: false
+    resources :orders, only: [ :index, :show ], format: false
   end
 end

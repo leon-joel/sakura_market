@@ -1,12 +1,15 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
+  layout :set_layout
+
   private
   def current_user
     if session[:user_id]
       @current_user ||= User.find(session[:user_id])
     end
   end
+  helper_method :current_user   # Viewでも使えるように
 
   def set_user
     @user = current_user
@@ -15,5 +18,20 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  helper_method :current_user   # Viewでも使えるように
+  def current_admin
+    if session[:admin_account]
+      @current_admin = true
+    end
+  end
+  helper_method :current_admin
+
+
+  def set_layout
+    if params[:controller].match(%r{\Aadmin/})
+      'admin/application'
+    else
+      'application'
+    end
+  end
+
 end
