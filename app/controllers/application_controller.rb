@@ -20,11 +20,17 @@ class ApplicationController < ActionController::Base
 
   def current_admin
     if session[:admin_account]
-      @current_admin = true
+      @admin = true
     end
   end
   helper_method :current_admin
 
+  def set_admin
+    @admin = current_admin
+    if @admin.nil?
+      redirect_to :admin_login
+    end
+  end
 
   def set_layout
     if params[:controller].match(%r{\Aadmin/})

@@ -1,2 +1,17 @@
-%h1 Admin::Users#index
-%p Find me in app/views/admin/users/index.html.haml
+%h1 顧客管理
+
+%table.table
+  %thead
+    %tr
+      %th ID
+      %th 名前
+      %th
+
+  %tbody
+    - @users.each do |user|
+      %tr
+        %td= user.id
+        %td= user.name
+        %td= link_to '詳細', admin_user_path(user.id)
+
+  = paginate @users

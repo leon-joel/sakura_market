@@ -9,22 +9,17 @@
       = link_to "さくらマーケット【管理者】", root_path, { class: "navbar-brand" }
     #navbarEexample7.collapse.navbar-collapse
       %ul.nav.navbar-nav
-        - if current_user
-          -#%li
-          -#  %a{:href => "#"} 日記を見る
+        - if current_admin
           %li
-            = link_to "商品マスター", :products
+            = link_to "商品マスター", :admin_products
           %li
-            = link_to "注文管理", :orders
+            = link_to "注文管理", :admin_orders
           %li
-            = link_to "ユーザー管理", :users
+            = link_to "顧客管理", :admin_users
 
       -# navbar-rightを使っているので?、下に記述したアイテムの方が左に表示される
       %p.navbar-text.navbar-right
         - if current_admin
           = link_to "ログアウト", :admin_logout, method: :delete
-          -#ようこそ
-          -#%a.navbar-link{:href => "#"} ゲスト
-          -#さん。
         - else
           = link_to "ログイン", :admin_login
