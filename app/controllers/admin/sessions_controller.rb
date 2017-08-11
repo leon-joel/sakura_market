@@ -3,13 +3,14 @@ class Admin::SessionsController < ApplicationController
   end
 
   def create
-    # TODO: とりあえず実装
-    if params[:session][:account] == "admin" && params[:session][:password] == "admin"
-      session[:admin_account] = "admin"
+    # POSTされたアカウントとパスワードを自前で確認している ※adminアカウントが複数必要になったらDBに格納して, has_secure_passwordで実装した方がいい
+    if params[:session][:account] == Rails.application.secrets.admin_account &&
+        BCrypt::Password.new(Rails.application.secrets.admin_hashed_password) == params[:session][:password]
+      session[:admin_account] = params[:session][:account]
       redirect_to admin_root_path
     else
       flash.now[:danger] = 'アカウント名もしくはパスワードが間違っています。'
-      render 'admin/new'
+      render 'admin/sessions/new'
     end
   end
 
