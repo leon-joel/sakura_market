@@ -2,6 +2,7 @@ class Admin::ProductsController < ApplicationController
   before_action :set_admin
 
   def index
+    @products = Product.order(:id).page(params[:page])
   end
 
   def show

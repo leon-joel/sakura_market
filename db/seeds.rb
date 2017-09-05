@@ -11,13 +11,13 @@ puts "Inserting seed data..."
 begin
   ActiveRecord::Base.transaction do
 
-    product1 = Product.create({ name: "おたんこなすび", picture: "nasu-150x150.jpg", price: 100, description: "世界一まずいなすび", is_visible: true, display_order: 1})
-    product2 = Product.create({ name: "オバキュウリ", picture: "green-150x150.jpg", price: 1000, is_visible: false})
-    product3 = Product.create({ name: "リコピンたっぷり新鮮トマト", picture: "red-150x150.jpg", price: 10000, description: "これを食べずしてトマトを語るなかれ", is_visible: true})
-
     user1 = User.create({name: "User1", email: "user1@example.com", password: "abc", password_confirmation: "abc", address: "東京"})
     user2 = User.create({name: "User2", email: "user2@example.com", password: " ", password_confirmation: " " })
     user3 = User.create({name: "User3", email: "user3@example.com", password: "xyz", password_confirmation: "xyz" })
+
+    product1 = Product.create({ name: "おたんこなすび", picture: "nasu-150x150.jpg", price: 100, description: "世界一まずいなすび", is_visible: true, display_order: 1})
+    product2 = Product.create({ name: "オバキュウリ", picture: "green-150x150.jpg", price: 1000, is_visible: false})
+    product3 = Product.create({ name: "リコピンたっぷり新鮮トマト", picture: "red-150x150.jpg", price: 10000, description: "これを食べずしてトマトを語るなかれ", is_visible: true})
 
     order1 = Order.create({user: user1, send_to_name: '山田一郎', send_to_address: "千葉", delivery_date: Date.current + 1.day,
                          delivery_time_range: "4"})

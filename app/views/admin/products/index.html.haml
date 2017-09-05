@@ -1,2 +1,26 @@
-%h1 Admin::Products#index
-%p Find me in app/views/admin/products/index.html.haml
+%h1 商品マスター
+
+%table.table
+  %thead
+    %tr
+      %th ID
+      %th 名前
+      %th 写真
+      %th 価格
+      %th 可視
+      %th 表示順
+
+  %tbody
+    - @products.each do |product|
+      %tr
+        %td= product.id
+        %td= product.name
+        %td= image_tag( product.picture_path, class: :product_image_small)
+
+        %td= number_to_jpy(product.price)
+        %td= product.is_visible
+        %td= product.display_order
+
+        %td= link_to '詳細', admin_product_path(product.id)
+
+  = paginate @products
