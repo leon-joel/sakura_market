@@ -1,2 +1,23 @@
-%h1 Admin::Orders#index
-%p Find me in app/views/admin/orders/index.html.haml
+%h1 注文管理
+
+%table.table
+  %thead
+    %tr
+      %th ID
+      %th 名前
+      %th 総数量
+      %th 総額
+      %th
+
+  %tbody
+    - @orders.each do |order|
+      %tr
+        %td= order.id
+        %td= order.user.name
+        %td= order.total_quantity
+        %td= number_to_jpy(order.grand_total)
+
+
+        %td= link_to '詳細', admin_product_path(order.id)
+
+  = paginate @orders
