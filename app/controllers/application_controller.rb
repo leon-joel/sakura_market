@@ -40,4 +40,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def set_product
+    @product = Product.find(params[:id])
+  end
 end
