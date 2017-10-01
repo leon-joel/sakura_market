@@ -84,9 +84,4 @@ class Order < ApplicationRecord
   def self.calc_tax(total)
     (total * 0.08).floor
   end
-
-  def delivery_time_range_string
-    time_range_to_string(self.delivery_time_range)
-  end
-
 end

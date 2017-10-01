@@ -114,27 +114,6 @@ RSpec.describe Order, type: :model do
         expect(order2.tax).to eq 2712
         expect(order2.grand_total).to eq 36612
       end
-
-      example 'delivery_time_range_string' do
-        expect(order1.delivery_time_range_string).to eq '指定なし'
-        order1.delivery_time_range = -1
-        expect(order1.delivery_time_range_string).to eq '指定なし'
-
-        order1.delivery_time_range = 1
-        expect(order1.delivery_time_range_string).to eq '午前中（12時まで）'
-
-        order1.delivery_time_range = 2
-        expect(order1.delivery_time_range_string).to eq '14時～16時'
-
-        order1.delivery_time_range = 3
-        expect(order1.delivery_time_range_string).to eq '16時～18時'
-
-        order1.delivery_time_range = 4
-        expect(order1.delivery_time_range_string).to eq '18時～20時'
-
-        order1.delivery_time_range = 5
-        expect(order1.delivery_time_range_string).to eq '19時～21時'
-      end
     end
 
     describe "class methods" do

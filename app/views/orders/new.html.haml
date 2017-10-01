@@ -26,7 +26,7 @@
               %strong 配達時間
               %button.btn.btn-link.btn-xs{ type: "button", onclick: "editDeliveryTimeRage()" } 変更
             %span#delivery_time_range
-              = @order.delivery_time_range_string
+              = time_range_to_string(@order.delivery_time_range)
             = f.hidden_field :delivery_time_range
 
       .panel.panel-default

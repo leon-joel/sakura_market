@@ -20,7 +20,7 @@
           %div
             %strong 配達時間
           %span#delivery_time_range
-            = @order.delivery_time_range_string
+            = time_range_to_string(@order.delivery_time_range)
 
     .panel.panel-default
       .panel-heading

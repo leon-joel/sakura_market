@@ -17,5 +17,4 @@ module ApplicationHelper
       else '指定なし'
     end
   end
-
 end
