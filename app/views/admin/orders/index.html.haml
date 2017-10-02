@@ -18,6 +18,6 @@
         %td= number_to_jpy(order.grand_total)
 
 
-        %td= link_to '詳細', admin_product_path(order.id)
+        %td= link_to '詳細', admin_order_path(order.id)
 
   = paginate @orders

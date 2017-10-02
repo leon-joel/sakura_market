@@ -43,4 +43,8 @@ class ApplicationController < ActionController::Base
   def set_product
     @product = Product.find(params[:id])
   end
+
+  def set_order
+    @order = Order.find(params[:id])
+  end
 end

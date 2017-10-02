@@ -1,0 +1,80 @@
+.order_page-title
+  %h2 注文の詳細
+
+.clearfix
+  .col-xs-12.col-sm-8.col-md-9.col-lg-9
+    .panel.panel-default
+      .panel-body
+        %div.col-xs-12.col-sm-12.col-md-6.col-lg-6
+          %div
+            %strong お届け先
+
+          #name-div= @order.send_to_name
+          #address-div= @order.send_to_address
+
+        %div.col-xs-12.col-sm-12.col-md-2.col-lg-2
+          %div
+            %strong 支払い方法
+          代引き
+        %div.col-xs-12.col-sm-12.col-md-4.col-lg-4
+          %div
+            %strong 配達時間
+          %span#delivery_time_range
+            = time_range_to_string(@order.delivery_time_range)
+
+    .panel.panel-default
+      .panel-heading
+        ご注文の商品
+
+      .panel-body
+        %table.table
+          %tbody
+            - @order.order_products.each do |op|
+              %tr
+                %td
+                  = link_to(op.product) do
+                    = image_tag(op.product.picture_path, class: :order_product_img )
+                %td
+                  = link_to(op.product) do
+                    = op.product.name
+                %td
+                  = number_to_jpy(op.product.price)
+                %td
+                  = "数量: #{op.quantity}"
+
+  .col-xs-12.col-sm-4.col-md-3.col-lg-3
+    .panel.panel-default
+      .panel-heading
+        注文内容
+      .panel-body
+        %table{ style: "width: 100%;"}
+          %tbody
+            %tr
+              %td 商品の小計
+              %td.order_currency
+                = number_to_jpy(@order.products_total)
+            %tr
+              %td 配送料
+              %td.order_currency
+                = number_to_jpy(@order.postage)
+            %tr
+              %td 代引き手数料
+              %td.order_currency
+                = number_to_jpy(@order.cod_fee)
+            %tr
+              %td 税
+              %td.order_currency
+                = number_to_jpy(@order.tax)
+
+            %tr
+              %td{ colspan: 2 }
+                %hr.no-vertical-margin
+            %tr
+              %td.size-medium.colored-price
+                %strong ご請求金額
+              %td.order_currency.size-medium.colored-price
+                %strong
+                  = number_to_jpy(@order.grand_total)
+      .panel-footer
+        %div.size-small 代引き手数料について
+        %div.size-small 配送料について
