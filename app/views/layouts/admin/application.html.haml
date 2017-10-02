@@ -9,7 +9,7 @@
   %body
     = render :partial => 'layouts/admin/application_header'
 
-    .bg-info
+    .bg-warning
       #flash_messages
         - flash.each do |message_type, message|
           = content_tag(:div, class: [ :alert, "alert-#{message_type}" ]) do
