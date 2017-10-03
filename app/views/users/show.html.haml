@@ -1,12 +1,4 @@
-%p
-  %b Name:
-  = @user.name
-%p
-  %b Email:
-  = @user.email
-%p
-  %b Address:
-  = @user.address
+= render partial: 'shared/user_detail'
 
 = link_to 'Edit', edit_user_path(@user)
 \|
