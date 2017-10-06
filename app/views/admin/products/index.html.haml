@@ -24,5 +24,6 @@
         %td= product.display_order
 
         %td= link_to '編集', edit_admin_product_path(product.id)
+        %td= link_to '削除', admin_product_path(product.id), method: :delete, data: {confirm: "本当に削除しますか？"}
 
   = paginate @products

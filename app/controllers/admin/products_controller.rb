@@ -34,11 +34,14 @@ class Admin::ProductsController < ApplicationController
   end
 
   def destroy
-    @product.destroy
-    respond_to do |format|
-      format.html { redirect_to products_url, notice: 'Product was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    @product.destroy!
+    redirect_to :admin_products, notice: 'Product was successfully destroyed.'
+  rescue => e
+    msg = e.kind_of?(ActiveRecord::InvalidForeignKey) ?
+        'Failed to delete this product, since this product is already ordered.' :
+        'Failed to delete this product.'
+    redirect_to :admin_products, alert: msg
+    logger.error e
   end
 
   private
