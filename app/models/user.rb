@@ -1,12 +1,9 @@
 class User < ApplicationRecord
   has_secure_password   # bcrypt
 
-  has_many :orders, -> { order "created_at DESC" }
-  has_many :cart_products, -> { order "created_at DESC" }
-
-  # カートはともかく、注文（履歴）が残っている限りユーザーを削除出来ないようにするため、dependentオプションは付けない。
-  # DB側制約 DELETE NO ACTION により必ず削除がエラーになる。
-  # TODO: :restrict_with_exception を付けた場合との振る舞いの違いは要確認。
+  # TODO: 現時点ではUser削除時に自動的にカート・注文も削除するようにしている
+  has_many :orders, -> { order "created_at DESC" }, dependent: :destroy
+  has_many :cart_products, -> { order "created_at DESC" }, dependent: :destroy
 
   # passwordのsetter
   # 生パスワードを与えると、それをハッシュ化して password_digest に代入する
@@ -19,6 +16,7 @@ class User < ApplicationRecord
   end
 
   # TODO: 検討: 操作しているのは cart_productsテーブルだけなので、元々の設計通り CartProductモデルに実装すべきか？？？
+  #            現時点の実装としては『カートはUserの持ち物』という考え方
   def add_to_cart!(product_id)
     # TODO: （ココだけではないが）排他制御とか考えないといけないかな… 最初のSELECT時に SELECT FOR UPDATE するとか？？？ 一人で複数デバイス使えることまで考えると…
     cart_product = CartProduct.find_by_user_id_and_product_id(self, product_id)
@@ -31,6 +29,4 @@ class User < ApplicationRecord
     end
     cart_product
   end
-
-
 end

@@ -1,5 +1,5 @@
 class CartProductsController < ApplicationController
-  before_action :set_user
+  before_action :set_current_user
   before_action :set_cart_product, only: [:show, :edit, :update, :destroy]
 
   def index

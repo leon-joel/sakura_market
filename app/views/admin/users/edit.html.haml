@@ -1,2 +1,7 @@
-%h1 Admin::Users#edit
-%p Find me in app/views/admin/users/edit.html.haml
+%h1 Editing user
+
+= render partial: 'form'
+
+= link_to 'Show', admin_user_path(@user)
+\|
+= link_to 'Back', :admin_users

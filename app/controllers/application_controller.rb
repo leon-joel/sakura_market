@@ -5,13 +5,14 @@ class ApplicationController < ActionController::Base
 
   private
   def current_user
+    # TODO: ここでUserが見つからなかった（ActiveRecord::RecordNotFound が発生した）場合に login 画面に戻るようにしないといけない
     if session[:user_id]
       @current_user ||= User.find(session[:user_id])
     end
   end
   helper_method :current_user   # Viewでも使えるように
 
-  def set_user
+  def set_current_user
     @user = current_user
     if @user.nil?
       redirect_to :login
@@ -46,5 +47,9 @@ class ApplicationController < ActionController::Base
 
   def set_order
     @order = Order.find(params[:id])
+  end
+
+  def set_user
+    @user = User.find(params[:id])
   end
 end
