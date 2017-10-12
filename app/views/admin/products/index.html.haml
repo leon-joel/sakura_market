@@ -1,6 +1,9 @@
 %h1 商品マスター
 
-= link_to '商品を追加する', :new_admin_product, class: "btn btn-info"
+.clearfix
+  = link_to '商品を追加する', :new_admin_product, class: "btn btn-info"
+
+= paginate @products
 
 %table.table
   %thead
@@ -26,4 +29,4 @@
         %td= link_to '編集', edit_admin_product_path(product.id)
         %td= link_to '削除', admin_product_path(product.id), method: :delete, data: {confirm: "本当に削除しますか？"}
 
-  = paginate @products
+= paginate @products
